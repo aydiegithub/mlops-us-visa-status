@@ -1,0 +1,35 @@
+## problem statement
+# USA visa approval status
+- given certain set of features such as continent, education, job-experience, training, employment, current age, etc.
+- we have to predict the probability of a visa approval.
+
+
+
+# tools and tech
+- Python, MongoDB, Flask, Scikit-learn, Pandas, NumPy, Matplotlib, Seaborn
+
+
+
+# Solution scope
+- This can be used on real life by US visa applicants so that they can improve their resume and criteria to get visa approved.
+
+
+
+# Solution Approach
+- Machine Learning (classification algorithms)
+
+
+
+# Solution Proposed
+- Load the data from MongoDB
+- Perform EDA and feature engineering to select the desirable features
+- Fit the ML classification algorithm and find out the best model
+- Select top few and tune the hyperparameters
+- Select the best model based on desired metrics
+
+
+
+# Project Setup
+- GitHub Repository
+- Requirements
+- Template
