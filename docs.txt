@@ -33,3 +33,8 @@
 - GitHub Repository
 - Requirements
 - Template
+
+
+
+# Resources:
+- MLOps tool: https://www.evidentlyai.com/
