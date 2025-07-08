@@ -38,3 +38,18 @@
 
 # Resources:
 - MLOps tool: https://www.evidentlyai.com/
+- MongoDB: https://www.mongodb.com/
+
+
+Step 2
+# Setup Database
+# Logging Module
+# Exception Module
+# Utility Module
+
+# From keggle to MongoDB connect it
+    - Do data ingestion on DB
+
+# Create the MDB Account
+Dataset: https://www.kaggle.com/datasets/moro23/easyvisa-dataset
+
