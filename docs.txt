@@ -53,3 +53,4 @@ Step 2
 # Create the MDB Account
 Dataset: https://www.kaggle.com/datasets/moro23/easyvisa-dataset
 
+Created custom exception, custom logger, custom utility functions
