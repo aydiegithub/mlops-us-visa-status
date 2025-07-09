@@ -54,3 +54,6 @@ Step 2
 Dataset: https://www.kaggle.com/datasets/moro23/easyvisa-dataset
 
 Created custom exception, custom logger, custom utility functions
+
+Next step:
+I am doing EDA, Feature engineering, model training on Jupyter Notebook
