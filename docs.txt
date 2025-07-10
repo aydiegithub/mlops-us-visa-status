@@ -57,3 +57,23 @@ Created custom exception, custom logger, custom utility functions
 
 Next step:
 I am doing EDA, Feature engineering, model training on Jupyter Notebook
+
+Next Step:
+We implement data ingestion
+ - Data Drift with evidentlyai (mlops tool)
+ - Understanding Data Validation, Data Transformation, Model Training, Model Evaluation, Model Pusher
+ - Model Training
+ - Model Evaluation
+ - Model Pusher
+
+Creating a Pipeline
+  > Component 1 Data ingestion -> connect to my mongodb using connection string -> <- fetch the data
+
+## Workflow of Pipeline
+  1. constants ( any changes must be made in this folder to reflect in everything automatically)
+  2. entity
+
+    - how artifacts created:
+        constants -> cinfig entity -> Data Ingestion -> (Train.parquet, Test.parquet) Artifacts
+    - after ingestuon:
+        (Train.parquet, Test.parquet) Artifacts -> Data Validation -> Data Transformation -> Model Trainer -> Model Evaluation -> Model Pusher
