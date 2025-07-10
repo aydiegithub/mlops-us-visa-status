@@ -77,3 +77,6 @@ Creating a Pipeline
         constants -> cinfig entity -> Data Ingestion -> (Train.parquet, Test.parquet) Artifacts
     - after ingestuon:
         (Train.parquet, Test.parquet) Artifacts -> Data Validation -> Data Transformation -> Model Trainer -> Model Evaluation -> Model Pusher
+
+## Develop all the components
+- Data Ingestion
