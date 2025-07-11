@@ -1,5 +1,6 @@
 import json
 import sys
+import os
 
 import pandas as pd
 from pandas import DataFrame
@@ -189,6 +190,7 @@ class DataValidation:
             )
             
             logging.info(f"Data validation artifact: {data_validation_artifact}")
+            os.makedirs(os.path.dirname(self.data_validation_config.drift_report_file_path), exist_ok=True)
             return data_validation_artifact
                     
         except Exception as e:
