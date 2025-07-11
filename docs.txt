@@ -70,8 +70,10 @@ Creating a Pipeline
   > Component 1 Data ingestion -> connect to my mongodb using connection string -> <- fetch the data
 
 ## Workflow of Pipeline
-  1. constants ( any changes must be made in this folder to reflect in everything automatically)
-  2. entity
+  1. constants create ( any changes must be made in this folder to reflect in everything automatically)
+  2. entity create
+  3. components create
+  4. pipelin update
 
     - how artifacts created:
         constants -> cinfig entity -> Data Ingestion -> (Train.parquet, Test.parquet) Artifacts
