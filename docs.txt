@@ -81,4 +81,8 @@ Creating a Pipeline
         (Train.parquet, Test.parquet) Artifacts -> Data Validation -> Data Transformation -> Model Trainer -> Model Evaluation -> Model Pusher
 
 ## Develop all the components
-- Data Ingestion
+- Data Ingestion developed succesfull for training Pipeline
+
+## Data Drift with evidentlyai amd data Validation
+We will solve this by data Transformation then Evaluation
+
