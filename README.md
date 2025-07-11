@@ -1,6 +1,6 @@
 # 🚧 This Repository is Under Development 🚧
 
-🔗 **Check Out My Tech Portfolio:** [aydie.in/projects](https://aydie.in)
+🔗 **Check Out My Tech Portfolio:** [aydie.in/projects](https://aydie.in/projects)
 
 📬 **For Business Inquiries:** [business@aydie.in](mailto:business@aydie.in) or [aditya@aydie.in](mailto:aditya@aydie.in) 
 
