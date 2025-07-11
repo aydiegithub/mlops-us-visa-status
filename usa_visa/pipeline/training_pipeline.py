@@ -33,3 +33,17 @@ class TrainPipeline:
         except Exception as e:
             raise AydieException(e, sys) from e
         
+        
+        
+    def run_pipeline(self, ) -> None:
+        """
+        This method of TrainPipeline class is responsible for running the complete training pipeline
+        """
+        try:
+            logging.info("Entered the [run_pipeline] method of TrainPipelin class")
+            data_ingestion_artifact = self.start_data_ingestion()
+            logging.info("Exited the [run_pipeline] method of TrainPipelin class")
+            return data_ingestion_artifact
+            
+        except Exception as e:
+            raise AydieException(e, sys) from e
