@@ -34,14 +34,21 @@ class DataIngestion:
         try:
             logging.info(f"Exporting data from mongodb")
             usvisa_data = USvisaData()
-            dataframe = usvisa_data.export_collection_as_dataframe(collection_name = self.data_ingestion_config.collection_name)
+            dataframe = usvisa_data.export_collection_as_dataframe(
+                collection_name = self.data_ingestion_config.collection_name
+                )
+            logging.info(f"Shape of dataframe: {dataframe.shape}")
+            
+            if dataframe.empty:
+                logging.error("Fetched dataframe from MongoDB is empty. Cannot proceed.")
+                raise Exception("No data found in the MongoDB collection.")
             
             logging.info(f"Shape of dataframe: {dataframe.shape}")
             feature_store_file_path = self.data_ingestion_config.feature_store_file_path
             dir_path = os.path.dirname(feature_store_file_path)
             os.makedirs(dir_path, exist_ok = True)
             logging.info(f"Saving exported data into feature store file path: {feature_store_file_path}")
-            dataframe.to_parquet(feature_store_file_path, index = False, header = True)
+            dataframe.to_parquet(feature_store_file_path, index = False)
             return dataframe
         
         except Exception as e:
@@ -53,29 +60,37 @@ class DataIngestion:
         Method Name :   split_data_as_train_test
         Description :   This method splits the dataframe into train set and test set based on split ratio 
         
-        Output      :   Folder is created in s3 bucket
+        Output      :   Train and test Parquet files saved locally
         On Failure  :   Write an exception log and then raise an exception
         """
-        
+
         logging.info("Entered [split_data_as_train_test] method of DataIngestion class")
-        
+
         try:
-            train_set, test_set = train_test_split(dataframe, test_size = self.data_ingestion_config.train_test_split_ratio, random_state=42)
-            logging.info("Performed train test split operation on the dataframe")
-            logging.info(
-                "exited [split_data_as_train_test] method of DataIngestion class"
+            train_set, test_set = train_test_split(
+                dataframe,
+                test_size=self.data_ingestion_config.train_test_split_ratio,
+                random_state=42
             )
-            
-            path = self.data_ingestion_config.training_file_path
-            dir_path = os.path.dirname(path)
-            os.makedirs(dir_path, exist_ok = True)
-            
-            logging.info(f"Exporting train and test file to {path}")
-            train_set.to_parquet(path, index = False, header = True)
-            test_set.to_parquet(path, index = False, header = True)
-            
-            logging.info(f"Exported train and test file to {path}")
-            
+            logging.info("Performed train test split operation on the dataframe")
+
+            train_path = self.data_ingestion_config.training_file_path
+            test_path = self.data_ingestion_config.test_file_path
+
+            train_dir = os.path.dirname(train_path)
+            test_dir = os.path.dirname(test_path)
+
+            os.makedirs(train_dir, exist_ok=True)
+            os.makedirs(test_dir, exist_ok=True)
+
+            logging.info(f"Exporting train file to {train_path}")
+            train_set.to_parquet(train_path, index=False)
+
+            logging.info(f"Exporting test file to {test_path}")
+            test_set.to_parquet(test_path, index=False)
+
+            logging.info("Exported train and test files successfully")
+
         except Exception as e:
             raise AydieException(e, sys) from e
             
@@ -102,7 +117,7 @@ class DataIngestion:
             )
             
             data_ingestion_artifact = DataIngestionArtifact(trained_file_path = self.data_ingestion_config.training_file_path,
-            test_file_path=self.data_ingestion_config.testing_file_path)
+            test_file_path=self.data_ingestion_config.test_file_path)
             logging.info(f"Data ingestion artifact: {data_ingestion_artifact}")
             return data_ingestion_artifact
             

@@ -1,0 +1,7 @@
+[ 2025-07-11 14:35:12,175 ] root - INFO - Entered the [run_pipeline] method of TrainPipelin class
+[ 2025-07-11 14:35:12,176 ] root - INFO - Entered the [start_data_ingestion] method of TrainPipelin class
+[ 2025-07-11 14:35:12,176 ] root - INFO - Getting data from mongo db
+[ 2025-07-11 14:35:12,176 ] root - INFO - Data_Ingestion class object created
+[ 2025-07-11 14:35:12,176 ] root - INFO - Entered [initiate_data_ingestion] method of DataIngestion class
+[ 2025-07-11 14:35:12,176 ] root - INFO - Entered [export_data_into_feature_store] method of Data_Ingestion class
+[ 2025-07-11 14:35:12,176 ] root - INFO - Exporting data from mongodb

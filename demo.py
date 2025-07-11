@@ -1,11 +1,4 @@
-from usa_visa.logger import logging
-from usa_visa.exception import AydieException
-import sys
+from usa_visa.pipeline.training_pipeline import TrainPipeline
 
-
-logging.info("Welcome to my custom log")
-
-try:
-    a = 2/0
-except Exception as e:
-    raise AydieException(e, sys)
+obj = TrainPipeline()
+obj.run_pipeline()
