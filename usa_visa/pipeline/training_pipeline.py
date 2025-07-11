@@ -3,6 +3,7 @@ import sys
 from usa_visa.exception import AydieException
 from usa_visa.logger import logging
 from usa_visa.components.data_ingestion import DataIngestion
+from usa_visa.components.data_validation import DataValidation
 from usa_visa.entity.config_entity import DataIngestionConfig, DataValidationConfig
 from usa_visa.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact
 
@@ -23,7 +24,7 @@ class TrainPipeline:
             logging.info("Entered the [start_data_ingestion] method of TrainPipelin class")
             logging.info("Getting data from mongo db")
             data_ingestion = DataIngestion(data_ingestion_config = self.data_ingestion_config)
-            data_validation_artifact = self.start_data_validation(data_ingestion_artifact = data_ingestion_artifact)
+            data_ingestion_artifact = data_ingestion.initiate_data_ingestion()
             logging.info("Got the train_set and test_set from mongodb")
             logging.info(
                 "Exited the start_data_ingestion method of TrainPipeline class"

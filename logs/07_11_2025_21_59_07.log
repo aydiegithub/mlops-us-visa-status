@@ -1,0 +1,9 @@
+[ 2025-07-11 21:59:08,818 ] root - INFO - Entered the [run_pipeline] method of TrainPipelin class
+[ 2025-07-11 21:59:08,819 ] root - INFO - Entered the [start_data_ingestion] method of TrainPipelin class
+[ 2025-07-11 21:59:08,819 ] root - INFO - Getting data from mongo db
+[ 2025-07-11 21:59:08,819 ] root - INFO - Data_Ingestion class object created
+[ 2025-07-11 21:59:08,819 ] root - INFO - Entered the start_data_validation method of TrainPipeline class
+[ 2025-07-11 21:59:08,819 ] root - INFO - Entered DataValidation constructor
+[ 2025-07-11 21:59:08,819 ] root - INFO - Entered the read_yaml_file method of utils
+[ 2025-07-11 21:59:08,822 ] root - INFO - Entered [initiate_data_validation] method of DataValidation class
+[ 2025-07-11 21:59:08,822 ] root - INFO - Starting data validation
