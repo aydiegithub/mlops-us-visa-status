@@ -88,3 +88,6 @@ We will solve this by data Transformation then Evaluation
 
 ## Now I am doing Data Transformation & Model Training
 in this method it will return preprocessing_pkl, train, test data using these data we will get trained_model
+
+## Now developing model trainer components
+I am using neuro-mf to automate the task of model selection and hyperparameters tuning for model trainig module in components
