@@ -86,3 +86,4 @@ Creating a Pipeline
 ## Data Drift with evidentlyai amd data Validation
 We will solve this by data Transformation then Evaluation
 
+## Now I am doing Data Transformation & Model Training
