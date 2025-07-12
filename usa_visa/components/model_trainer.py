@@ -54,11 +54,11 @@ class ModelTrainer:
             
             y_pred = model_obj.predict(X_test)
             
-            accuracy_score = accuracy_score(y_test, y_pred)
+            acc = accuracy_score(y_test, y_pred)
             f1 = f1_score(y_test, y_pred)
             precision = precision_score(y_test, y_pred)
             recall = recall_score(y_test, y_pred)
-            metric_artifact = ClassificationMetricArtifact(f1_score=f1, precision_score=precision, recall_score=recall)
+            metric_artifact = ClassificationMetricArtifact(f1_score=f1, precision_score=precision, recall_score=recall, accuracy_score=acc)
             
             logging.info("Exiting [get_model_object_and_report] method of ModelTrainer class")
             return best_model_detail, metric_artifact
