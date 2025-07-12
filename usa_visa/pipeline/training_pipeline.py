@@ -71,7 +71,7 @@ class TrainPipeline:
                                         data_validation_artifact = data_validation_artifact
                                 )
             data_transformation_artifact = data_transformation.initiate_data_transformation()
-            return data_ingestion_artifact
+            return data_transformation_artifact
         except Exception as e:
             raise AydieException(e, sys)
         

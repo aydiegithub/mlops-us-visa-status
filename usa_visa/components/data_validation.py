@@ -1,12 +1,11 @@
 import json
 import sys
-import os
 
 import pandas as pd
-from pandas import DataFrame
-
 from evidently.model_profile import Profile
 from evidently.model_profile.sections import DataDriftProfileSection
+
+from pandas import DataFrame
 
 from usa_visa.exception import AydieException
 from usa_visa.logger import logging
@@ -16,192 +15,156 @@ from usa_visa.entity.config_entity import DataValidationConfig
 from usa_visa.constants import SCHEMA_FILE_PATH_URL
 
 
-
 class DataValidation:
     def __init__(self, data_ingestion_artifact: DataIngestionArtifact, data_validation_config: DataValidationConfig):
         """
-        Args:
-            data_ingestion_artifact (DataIngestionArtifact): output reference of data injection artifact stage
-            data_validation_config (DataValidationConfig): configuration for data validation
+        :param data_ingestion_artifact: Output reference of data ingestion artifact stage
+        :param data_validation_config: configuration for data validation
         """
-        
         try:
-            logging.info("Entered DataValidation constructor")
             self.data_ingestion_artifact = data_ingestion_artifact
             self.data_validation_config = data_validation_config
-            self._schema_config = read_yaml_file(file_path = SCHEMA_FILE_PATH_URL)
+            self._schema_config =read_yaml_file(file_path=SCHEMA_FILE_PATH_URL)
         except Exception as e:
-            raise AydieException(e, sys)
-        
+            raise AydieException(e,sys)
 
-        
-    def validation_number_of_columns(self, dataframe: DataFrame) -> bool:
+    def validate_number_of_columns(self, dataframe: DataFrame) -> bool:
         """
-        Summary:
-            This method validates the number of columns
-
-        Args:
-            dataframe (DataFrame): Input is pandas dataframe
-
-        Returns:
-            bool: returns bool value based on results
-        """
+        Method Name :   validate_number_of_columns
+        Description :   This method validates the number of columns
         
+        Output      :   Returns bool value based on validation results
+        On Failure  :   Write an exception log and then raise an exception
+        """
         try:
-            status = len(dataframe.columns) == len(self._schema_config['columns'])
-            logging.info(f"Required column is present: [{status}]")
+            status = len(dataframe.columns) == len(self._schema_config["columns"])
+            logging.info(f"Is required column present: [{status}]")
             return status
         except Exception as e:
             raise AydieException(e, sys)
-        
-        
-    
-    
-    def is_column_exist(self, dataframe: DataFrame) -> bool:
-        """    
-        Summary:
-            This method validates column exists
 
-        Args:
-            dataframe (DataFrame): Input is pandas dataframe
-
-        Returns:
-            bool: returns bool value based on results
+    def is_column_exist(self, df: DataFrame) -> bool:
         """
+        Method Name :   is_column_exist
+        Description :   This method validates the existence of a numerical and categorical columns
         
+        Output      :   Returns bool value based on validation results
+        On Failure  :   Write an exception log and then raise an exception
+        """
         try:
-            dataframe_columns = dataframe.columns
+            dataframe_columns = df.columns
             missing_numerical_columns = []
             missing_categorical_columns = []
-            
-            logging.info("checking for missing numerical columns")
-            for column in self._schema_config['numerical_columns']:
+            for column in self._schema_config["numerical_columns"]:
                 if column not in dataframe_columns:
                     missing_numerical_columns.append(column)
-                    
-            if len(missing_numerical_columns) > 0:
-                logging.info(f"Missing numerical columns: [{missing_numerical_columns}]")
-                
-            
-            logging.info("checking for missing categorical columns")
-            for column in self._schema_config['categorical_columns']:
+
+            if len(missing_numerical_columns)>0:
+                logging.info(f"Missing numerical column: {missing_numerical_columns}")
+
+
+            for column in self._schema_config["categorical_columns"]:
                 if column not in dataframe_columns:
                     missing_categorical_columns.append(column)
-                    
-            if len(missing_categorical_columns) > 0:
-                logging.info(f"Missing categorical columns: [{missing_categorical_columns}]")
-                
-            return False if len(missing_numerical_columns) > 0 or len(missing_categorical_columns) > 0 else True
-                
+
+            if len(missing_categorical_columns)>0:
+                logging.info(f"Missing categorical column: {missing_categorical_columns}")
+
+            return False if len(missing_categorical_columns)>0 or len(missing_numerical_columns)>0 else True
         except Exception as e:
             raise AydieException(e, sys) from e
-
-        
 
     @staticmethod
     def read_data(file_path) -> DataFrame:
         try:
-            return pd.read_parquet(file_path)
+            if file_path.endswith(".parquet"):
+                return pd.read_parquet(file_path)
+            else:
+                raise ValueError("Unsupported file format. Only '.parquet' files are supported.")
         except Exception as e:
             raise AydieException(e, sys)
-        
+
     def detect_dataset_drift(self, reference_df: DataFrame, current_df: DataFrame, ) -> bool:
         """
-        This method validates if drift is detected
-
-        Returns:
-            bool: Return bool value based on validation result
-        """
+        Method Name :   detect_dataset_drift
+        Description :   This method validates if drift is detected
         
+        Output      :   Returns bool value based on validation results
+        On Failure  :   Write an exception log and then raise an exception
+        """
         try:
-            logging.info('checking for drift in [detect_dataset_drift] method of DataValidation class')
-            data_drift_profile = Profile(sections = [DataDriftProfileSection()])
-            data_drift_profile.calculate(reference_data = reference_df, current_data = current_df)
-            
+            data_drift_profile = Profile(sections=[DataDriftProfileSection()])
+
+            data_drift_profile.calculate(reference_df, current_df)
+
             report = data_drift_profile.json()
             json_report = json.loads(report)
-            
-            drift_report_dir = os.path.dirname(self.data_validation_config.drift_report_file_path)
-            os.makedirs(drift_report_dir, exist_ok=True)
-            
-            logging.info(f"Writing drift report to {self.data_validation_config.drift_report_file_path}")
-            write_yaml_file(file_path = self.data_validation_config.drift_report_file_path, content = json_report)
-            
-            n_features = json_report['data_drift']['data']['metrics']['n_features']
-            n_drifted_features = json_report['data_drift']['data']['metrics']['n_drifted_features']
-            
-            logging.info(f"{n_drifted_features} / {n_features} features drift detected")
-            drift_status = json_report['data_drift']['data']['metrics']['dataset_drift']
-            if drift_status:
-                logging.info("Data drift detected")
-            else:
-                logging.info("No data drift detected")
+
+            write_yaml_file(file_path=self.data_validation_config.drift_report_file_path, content=json_report)
+
+            n_features = json_report["data_drift"]["data"]["metrics"]["n_features"]
+            n_drifted_features = json_report["data_drift"]["data"]["metrics"]["n_drifted_features"]
+
+            logging.info(f"{n_drifted_features}/{n_features} drift detected.")
+            drift_status = json_report["data_drift"]["data"]["metrics"]["dataset_drift"]
             return drift_status
-            
         except Exception as e:
-             raise AydieException(e, sys) from e
-         
-         
-    
+            raise AydieException(e, sys) from e
+
     def initiate_data_validation(self) -> DataValidationArtifact:
         """
-        This method initiates data validation component for the pipeline
-        """
+        Method Name :   initiate_data_validation
+        Description :   This method initiates the data validation component for the pipeline
         
+        Output      :   Returns bool value based on validation results
+        On Failure  :   Write an exception log and then raise an exception
+        """
+
         try:
             validation_error_msg = ""
-            logging.info("Entered [initiate_data_validation] method of DataValidation class")
             logging.info("Starting data validation")
-            
-            train_df = DataValidation.read_data(file_path = self.data_ingestion_artifact.trained_file_path)
-            test_df = DataValidation.read_data(file_path = self.data_ingestion_artifact.test_file_path)
-            
-            status = self.validation_number_of_columns(dataframe = train_df)
-            logging.info(f"All required number of columns present in training dataframe: {status}")
+            train_df, test_df = (DataValidation.read_data(file_path=self.data_ingestion_artifact.trained_file_path),
+                                 DataValidation.read_data(file_path=self.data_ingestion_artifact.test_file_path))
+
+            status = self.validate_number_of_columns(dataframe=train_df)
+            logging.info(f"All required columns present in training dataframe: {status}")
             if not status:
-                validation_error_msg += f"Columns are missing in the training dataframe. "        
-            
-            status = self.validation_number_of_columns(dataframe = test_df)
-            logging.info(f"All required number of columns present in test dataframe: {status}")
+                validation_error_msg += f"Columns are missing in training dataframe."
+            status = self.validate_number_of_columns(dataframe=test_df)
+
+            logging.info(f"All required columns present in testing dataframe: {status}")
             if not status:
-                validation_error_msg += f"Columns are missing in the test dataframe. "
-                
-            status = self.is_column_exist(train_df)
-            logging.info(f"All required columns exist in training dataframe: {status}")
+                validation_error_msg += f"Columns are missing in test dataframe."
+
+            status = self.is_column_exist(df=train_df)
+
             if not status:
-                validation_error_msg += f"Columns[names] are missing in the train dataframe. "
-                
-            status = self.is_column_exist(test_df)
-            logging.info(f"All required columns exist in test dataframe: {status}")
+                validation_error_msg += f"Columns are missing in training dataframe."
+            status = self.is_column_exist(df=test_df)
+
             if not status:
-                validation_error_msg += f"Columns[names] are missing in the test dataframe. "
-                
-            
+                validation_error_msg += f"columns are missing in test dataframe."
+
             validation_status = len(validation_error_msg) == 0
-            
+
             if validation_status:
-                logging.info(f"Check for data drift")
-                os.makedirs(os.path.dirname(self.data_validation_config.drift_report_file_path), exist_ok=True)
                 drift_status = self.detect_dataset_drift(train_df, test_df)
                 if drift_status:
-                    logging.info(f"Data Drift detected")
-                    validation_error_msg = "Drift_detected"
-                    validation_status = False
+                    logging.info(f"Drift detected.")
+                    validation_error_msg = "Drift detected"
                 else:
-                    logging.info(f"No Data Drift detected")
                     validation_error_msg = "Drift not detected"
             else:
-                logging.info(f"validation_error: {validation_error_msg}")
+                logging.info(f"Validation_error: {validation_error_msg}")
                 
-                
+
             data_validation_artifact = DataValidationArtifact(
-                validation_status = validation_status,
-                message = validation_error_msg,
-                drift_report_file_path = self.data_validation_config.drift_report_file_path 
+                validation_status=validation_status,
+                message=validation_error_msg,
+                drift_report_file_path=self.data_validation_config.drift_report_file_path
             )
-            
+
             logging.info(f"Data validation artifact: {data_validation_artifact}")
             return data_validation_artifact
-                    
         except Exception as e:
             raise AydieException(e, sys) from e

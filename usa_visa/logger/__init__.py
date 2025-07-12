@@ -1,10 +1,14 @@
 import logging
 import os
 
-from from_root import from_root
+from pathlib import Path
+
+def from_root(*paths):
+    return os.path.join(Path(__file__).resolve().parents[2], *paths)
+
 from datetime import datetime
 
-LOG_FILE = f"{datetime.now().strftime("%m_%d_%Y_%H_%M_%S")}.log"
+LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
 
 log_dir = 'logs'
 
