@@ -100,3 +100,4 @@ using trainig pipeline module to run everything in one place.
 - User End app using FastAPI
 
 workflow: ModelTrainer gave me model.pkl -> do model evaluation -> 
+I am making cloudflare r2 bucket to store and retrieve my model
