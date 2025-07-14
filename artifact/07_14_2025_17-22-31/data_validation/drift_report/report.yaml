@@ -101979,7 +101979,7 @@ data_drift:
           - 37
           - 169
         drift_detected: false
-        drift_score: 0.009769236150461262
+        drift_score: 0.00976923615046125
         feature_type: cat
         ref_small_hist:
           x:
@@ -102011,7 +102011,7 @@ data_drift:
           - 680
           - 1979
         drift_detected: false
-        drift_score: 0.011398088610204615
+        drift_score: 0.011398088610204611
         feature_type: cat
         ref_small_hist:
           x:
@@ -102186,7 +102186,7 @@ data_drift:
           - 1395
           - 1308
         drift_detected: false
-        drift_score: 0.011645035145855654
+        drift_score: 0.011645035145855649
         feature_type: cat
         ref_small_hist:
           x:
@@ -102318,6 +102318,6 @@ data_drift:
       id: null
       prediction: null
       target: null
-  datetime: '2025-07-12 23:45:52.609591'
+  datetime: '2025-07-14 17:22:49.338459'
   name: data_drift
-timestamp: '2025-07-12 23:45:52.610454'
+timestamp: '2025-07-14 17:22:49.339029'
