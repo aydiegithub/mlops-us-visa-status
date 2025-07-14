@@ -28,7 +28,8 @@ class EvaluationModelResponse:
 
 
 class ModelEvaluation:
-    def __init__(self, model_eval_config: ModelEvaluationConfig, data_ingestion_artifact: DataIngestionArtifact,
+    def __init__(self, model_eval_config: ModelEvaluationConfig, 
+                 data_ingestion_artifact: DataIngestionArtifact,
                  model_trainer_artifact: ModelTrainerArtifact):
         try:
             self.model_eval_config = model_eval_config
