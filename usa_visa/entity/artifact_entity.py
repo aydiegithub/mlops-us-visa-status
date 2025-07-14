@@ -37,6 +37,6 @@ class ModelEvaluationArtifact:
     trained_model_path: str
     
 @dataclass
-class ModelPusherEntity:
+class ModelPusherArtifact:
     bucker_name: str
     s3_model_path: str

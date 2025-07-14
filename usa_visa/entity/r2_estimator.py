@@ -3,6 +3,7 @@ from usa_visa.exception import AydieException
 from usa_visa.entity.estimator import USvisaModel
 import sys
 from pandas import DataFrame
+from usa_visa.logger import logging
 
 
 class USvisaEstimator:
@@ -19,11 +20,15 @@ class USvisaEstimator:
         self.s3 = SimpleStorageService()
         self.model_path = model_path
         self.loaded_model: USvisaModel = None
+        logging.info(f"USvisaEstimator initialized with bucket: {bucket_name}, model_path: {model_path}")
 
 
     def is_model_present(self,model_path):
         try:
-            return self.s3.s3_key_path_available(bucket_name = self.bucket_name, s3_key = model_path)
+            logging.info(f"Checking if model exists at {model_path} in bucket {self.bucket_name}")
+            result = self.s3.s3_key_path_available(bucket_name = self.bucket_name, s3_key = model_path)
+            logging.info(f"Model presence check complete: {model_path}")
+            return result
         except AydieException as e:
             print(e)
             return False
@@ -33,7 +38,7 @@ class USvisaEstimator:
         Load the model from the model_path
         :return:
         """
-
+        logging.info(f"Loading model from {self.model_path} in bucket {self.bucket_name}")
         return self.s3.load_model(self.model_path, bucket_name = self.bucket_name)
 
     def save_model(self, from_file, remove: bool = False) -> None:
@@ -44,11 +49,13 @@ class USvisaEstimator:
         :return:
         """
         try:
+            logging.info(f"Saving model from {from_file} to {self.model_path} in bucket {self.bucket_name}")
             self.s3.upload_file(from_file,
                                 to_filename = self.model_path,
                                 bucket_name = self.bucket_name,
                                 remove = remove
                                 )
+            logging.info(f"Model successfully saved to {self.model_path}")
         except Exception as e:
             raise AydieException(e, sys)
 
@@ -59,8 +66,12 @@ class USvisaEstimator:
         :return:
         """
         try:
+            logging.info("Predict method called.")
             if self.loaded_model is None:
+                logging.info("Model not loaded in memory. Loading model now...")
                 self.loaded_model = self.load_model()
-            return self.loaded_model.predict(dataframe = dataframe)
+            result = self.loaded_model.predict(dataframe = dataframe)
+            logging.info("Prediction completed successfully.")
+            return result
         except Exception as e:
             raise AydieException(e, sys)
