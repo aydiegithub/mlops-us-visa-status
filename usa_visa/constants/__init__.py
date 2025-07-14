@@ -24,13 +24,6 @@ CURRENT_YEAR = date.today().year
 PREPROCESSING_OBJECT_FILE_NAME = "preprocessing.pkl"
 SCHEMA_FILE_PATH_URL = os.path.join("config", "schema.yaml")
 
-# Cloudflare R2 CREDENTIALS
-R2_ACCOUNT_ID_ENV_KEY = "R2_ACCOUNT_ID"
-R2_ACCESS_KEY_ID_ENV_KEY = "R2_ACCESS_KEY_ID"
-R2_SECRET_ACCESS_KEY_ENV_KEY = "R2_SECRET_ACCESS_KEY"
-R2_BUCKET_NAME = "usvisa-model"
-R2_ENDPOINT_URL = "R2_ENDPOINT"
-
 #############################################################################################
 # AWS CREDENTIAL
 '''AWS_ACCESS_KEY_ID_ENV_KEY  = "AWS_ACCESS_KEY_ID"
@@ -77,3 +70,15 @@ MODEL_BUCKET_NAME: str = "usvisa-model2025"
 MODEL_PUSHER_S3_KEY: str = "model-registory"'''
 
 #############################################################################################
+
+# Cloudflare R2 CREDENTIALS
+R2_ACCOUNT_ID_ENV_KEY = "R2_ACCOUNT_ID"
+R2_ACCESS_KEY_ID_ENV_KEY = "R2_ACCESS_KEY_ID"
+R2_SECRET_ACCESS_KEY_ENV_KEY = "R2_SECRET_ACCESS_KEY"
+R2_BUCKET_NAME = "usvisa-model"
+R2_ENDPOINT_URL = "R2_ENDPOINT"
+
+# Model Evaluation Constants
+MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE: float = 0.02
+MODEL_BUCKET_NAME: str = "usvisa-model"
+MODEL_PUSHER_S3_KEY: str = "model-registory"

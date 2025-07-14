@@ -101,3 +101,5 @@ using trainig pipeline module to run everything in one place.
 
 workflow: ModelTrainer gave me model.pkl -> do model evaluation -> 
 I am making cloudflare r2 bucket to store and retrieve my model
+Created estimator entity, created r2 storage connection object, created r2 configuration
+now the code is ready now I will write config entity and artifact entity, later I will develop components for pipeline
