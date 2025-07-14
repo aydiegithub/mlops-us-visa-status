@@ -21,6 +21,7 @@ usa_visa/data_access/usvisa_data.py
 usa_visa/entity/__init__.py
 usa_visa/entity/artifact_entity.py
 usa_visa/entity/config_entity.py
+usa_visa/entity/estimator.py
 usa_visa/exception/__init__.py
 usa_visa/logger/__init__.py
 usa_visa/pipeline/__init__.py
