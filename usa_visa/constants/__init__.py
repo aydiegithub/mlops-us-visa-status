@@ -82,3 +82,8 @@ R2_ENDPOINT_URL = "R2_ENDPOINT"
 MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE: float = 0.02
 MODEL_BUCKET_NAME: str = "usvisa-model"
 MODEL_PUSHER_S3_KEY: str = "model-registory"
+
+#############################################################################################
+
+APP_HOST = "0.0.0.0"
+APP_PORT = 8080

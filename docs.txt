@@ -105,4 +105,8 @@ Created estimator entity, created r2 storage connection object, created r2 confi
 now the code is ready now I will write config entity and artifact entity, later I will develop components for pipeline
 updated config and artifact entity for both model evaluation and model pusher
 
-Now writing script for model pusher
+Now writing script for model pusher, the workflow is that my model will fit the old trained model from my cloud flare R2 storage which is similar to AWS S3 bucket, then it will evaluate the performance of the old model and the newly trained model from the pipeline later it will push the best model to the cloud storage. This is how the pipeline is working now.
+
+# Prediction Pipeline
+Now I am developing prediction pipeline
+
