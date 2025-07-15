@@ -115,4 +115,4 @@ Development is done
 
 
 # CICD deployement using github actions
-creating yaml file
+creating yaml file, setting up secret key for the Repository
