@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aydie's US Visa Prediction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+  </head>
+  <body class="bg-aydie-white text-gray-800 flex flex-col min-h-screen">
+    <nav class="bg-aydie-blue p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+           <a href="https://aydie.in" class="flex-shrink-0">
+               <img src="https://aydie.in/assets/img/logo_header.png" alt="Aydie.in Logo" class="h-10 w-auto">
+           </a>
+
+           <div class="hidden md:flex md:space-x-6 md:items-center">
+               <a href="https://aydie.in" class="text-aydie-lime text-lg font-normal hover:font-bold hover:text-aydie-white transition-colors duration-300">Home</a>
+               <a href="https://aydie.in/projects" class="text-aydie-lime text-lg font-normal hover:font-bold hover:text-aydie-white transition-colors duration-300">Projects</a>
+               <a href="https://aydie.in/service" class="text-aydie-lime text-lg font-normal hover:font-bold hover:text-aydie-white transition-colors duration-300">Services</a>
+               <a href="https://aydie.in/brand" class="text-aydie-lime text-lg font-normal hover:font-bold hover:text-aydie-white transition-colors duration-300">About Us</a>
+               <a href="https://aydie.in/#contact" class="text-aydie-lime text-lg font-normal hover:font-bold hover:text-aydie-white transition-colors duration-300">Contact</a>
+           </div>
+
+           <button id="mobile-menu-button" class="md:hidden text-aydie-lime focus:outline-none">
+               <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+               </svg>
+           </button>
+        </div>
+        <div id="nav-links" class="hidden md:hidden flex-col items-center space-y-2 mt-4">
+            <a href="https://aydie.in" class="text-aydie-lime text-lg font-normal hover:font-bold hover:text-aydie-white transition-colors duration-300">Home</a>
+            <a href="https://aydie.in/projects" class="text-aydie-lime text-lg font-normal hover:font-bold hover:text-aydie-white transition-colors duration-300">Projects</a>
+            <a href="https://aydie.in/service" class="text-aydie-lime text-lg font-normal hover:font-bold hover:text-aydie-white transition-colors duration-300">Services</a>
+            <a href="https://aydie.in/brand" class="text-aydie-lime text-lg font-normal hover:font-bold hover:text-aydie-white transition-colors duration-300">About Us</a>
+            <a href="https://aydie.in/#contact" class="text-aydie-lime text-lg font-normal hover:font-bold hover:text-aydie-white transition-colors duration-300">Contact</a>
+        </div>
+     </nav>
+
+    <div class="container mx-auto mt-8 p-4 text-center">
+        <p class="text-lg text-aydie-blue font-semibold">
+            This is an end-to-end MLOps project for predicting US Visa approval status.
+        </p>
+    </div>
+
+    <section class="flex-grow flex items-center justify-center p-4">
+        <div class="container mx-auto bg-white p-8 rounded-xl shadow-2xl max-w-4xl w-full border border-aydie-lime">
+            <form action="/" method="post">
+                <legend class="text-center text-aydie-blue text-3xl font-extrabold mb-8">US Visa Approval Form</legend>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="mb-6 md:mb-0">
+                        <label for="continent" class="block text-aydie-blue text-sm font-semibold mb-2">Continent</label>
+                        <select class="form-control w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-aydie-lime transition duration-200" id="continent" name="continent" required="required">
+                          <option value="" disabled selected>Select Continent</option>
+                          <option>Asia</option>
+                          <option>Africa</option>
+                          <option>North America</option>
+                          <option>Europe</option>
+                          <option>South America</option>
+                          <option>Oceania</option>
+                        </select>
+                    </div>
+        
+                    <div class="mb-6 md:mb-0">
+                        <label for="education_of_employee" class="block text-aydie-blue text-sm font-semibold mb-2">Education of Employee</label>
+                        <select class="form-control w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-aydie-lime transition duration-200" id="education_of_employee" name="education_of_employee" required="required">
+                            <option value="" disabled selected>Select Education</option>
+                            <option>High School</option>
+                            <option>Master's</option>
+                            <option>Bachelor's</option>
+                            <option>Doctorate</option>
+                        </select>
+                    </div>
+        
+                    <div class="mb-6 md:mb-0">
+                        <label for="has_job_experience" class="block text-aydie-blue text-sm font-semibold mb-2">Has Job Experience</label>
+                        <select class="form-control w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-aydie-lime transition duration-200" id="has_job_experience" name="has_job_experience" required="required">
+                            <option value="" disabled selected>Has Experience</option>
+                            <option value="N">No</option>
+                            <option value="Y">Yes</option>
+                        </select>
+                    </div>
+        
+                    <div class="mb-6 md:mb-0">
+                        <label for="requires_job_training" class="block text-aydie-blue text-sm font-semibold mb-2">Requires Job Training</label>
+                        <select class="form-control w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-aydie-lime transition duration-200" id="requires_job_training" name="requires_job_training" required="required">
+                            <option value="" disabled selected>Required Training</option>
+                            <option value="N">No</option>
+                            <option value="Y">Yes</option>
+                        </select>
+                    </div>
+        
+                    <div class="mb-6 md:mb-0">
+                        <label for="no_of_employees" class="block text-aydie-blue text-sm font-semibold mb-2">Number of Employees</label>
+                        <input type="number" class="form-control w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-aydie-lime transition duration-200" id="no_of_employees" name="no_of_employees" min="12000" max="40000" placeholder="Select between 12000 to 40000" required="required">
+                    </div>
+                    
+                    <div class="mb-6 md:mb-0">
+                        <label for="region_of_employment" class="block text-aydie-blue text-sm font-semibold mb-2">Select Region</label>
+                        <select class="form-control w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-aydie-lime transition duration-200" id="region_of_employment" name="region_of_employment" required="required">
+                          <option value="" disabled selected>Region</option>
+                          <option>West</option>
+                          <option>Northeast</option>
+                          <option>South</option>
+                          <option>Midwest</option>
+                          <option>Island</option>
+                        </select>
+                    </div>
+        
+                    <div class="mb-6 md:mb-0">
+                        <label for="prevailing_wage" class="block text-aydie-blue text-sm font-semibold mb-2">Prevailing Wage</label>
+                        <input type="number" class="form-control w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-aydie-lime transition duration-200" id="prevailing_wage" name="prevailing_wage" min="600" max="70000" placeholder="Select between 700 to 7000" required="required">
+                    </div>
+        
+                    <div class="mb-6 md:mb-0">
+                        <label for="unit_of_wage" class="block text-aydie-blue text-sm font-semibold mb-2">Contract Tenure</label>
+                        <select class="form-control w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-aydie-lime transition duration-200" id="unit_of_wage" name="unit_of_wage" required="required">
+                            <option value="" disabled selected>Contract Tenure</option>
+                            <option>Hour</option>
+                            <option>Year</option>
+                            <option>Week</option>
+                            <option>Month</option>
+                        </select>
+                    </div>
+        
+                    <div class="mb-6 md:mb-0">
+                        <label for="full_time_position" class="block text-aydie-blue text-sm font-semibold mb-2">Full-Time</label>
+                        <select class="form-control w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-aydie-lime transition duration-200" id="full_time_position" name="full_time_position" required="required">
+                            <option value="" disabled selected>Choose</option>
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+                        </select>
+                    </div>
+        
+                    <div class="mb-6 md:mb-0">
+                        <label for="company_age" class="block text-aydie-blue text-sm font-semibold mb-2">Age of the company</label>
+                        <input type="number" class="form-control w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-aydie-lime transition duration-200" id="company_age" name="company_age" min="10" max="180" placeholder="Select between 10 to 180" required="required">
+                    </div>
+                </div>
+    
+                <div class="text-center mt-8">
+                    <input class="btn-aydie-lime text-aydie-blue font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 cursor-pointer" type="submit" value="Predict Visa-Status" required />
+                </div>
+            </form>
+
+            {% if status and status != "Rendering" %}
+              <div class="text-center mt-10 p-4 bg-aydie-blue text-aydie-white rounded-xl shadow-inner">
+                  <h2 class="text-2xl md:text-3xl font-bold text-white">
+                      Visa Status: <span class="text-aydie-lime">{{status}}</span>
+                  </h2>
+              </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <footer class="bg-aydie-blue p-8 mt-10 shadow-inner">
+        <div class="container mx-auto text-center text-aydie-lime">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://linkedin.com/in/aydiemusic" target="_blank" rel="noopener noreferrer" class="text-aydie-lime hover:text-aydie-white transition-colors duration-300" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin text-2xl"></i>
+                </a>
+                <a href="https://instagram.com/aydiemusic" target="_blank" rel="noopener noreferrer" class="text-aydie-lime hover:text-aydie-white transition-colors duration-300" aria-label="Instagram">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </a>
+                <a href="https://youtube.com/@aydiemusic" target="_blank" rel="noopener noreferrer" class="text-aydie-lime hover:text-aydie-white transition-colors duration-300" aria-label="YouTube">
+                    <i class="fab fa-youtube text-2xl"></i>
+                </a>
+                <a href="https://github.com/aydiegithub" target="_blank" rel="noopener noreferrer" class="text-aydie-lime hover:text-aydie-white transition-colors duration-300" aria-label="GitHub">
+                    <i class="fab fa-github text-2xl"></i>
+                </a>
+                <a href="https://gitlab.com/aydie" target="_blank" rel="noopener noreferrer" class="text-aydie-lime hover:text-aydie-white transition-colors duration-300" aria-label="GitLab">
+                    <i class="fab fa-gitlab text-2xl"></i>
+                </a>
+            </div>
+            <p class="text-lg font-normal hover:font-bold">© 2025 Aydie's Avenue. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const navLinks = document.getElementById('nav-links');
+
+            mobileMenuButton.addEventListener('click', function() {
+                navLinks.classList.toggle('hidden');
+                navLinks.classList.toggle('flex'); // Toggle flex to show/hide
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        // This script is largely redundant with Tailwind's focus classes,
+        // but kept for compatibility if other custom behaviors rely on it.
+        $(".input").focus(function(){
+            $(this).parent().addClass("focus");
+        }).blur(function(){
+            if($(this).val() === ''){
+                $(this).parent().removeClass("focus");
+            }
+        })
+    </script>
+  </body>
+</html>

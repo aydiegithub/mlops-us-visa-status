@@ -1,0 +1,34 @@
+:root {
+  --aydie-blue: #1F1247;
+  --aydie-lime: #C9E975;
+  --aydie-white: #FFFFFF;
+}
+body {
+  font-family: 'Montserrat', sans-serif; /* Changed font to Montserrat */
+  background-color: var(--aydie-white); /* White background */
+}
+.bg-aydie-blue {
+  background-color: var(--aydie-blue);
+}
+.text-aydie-blue {
+  color: var(--aydie-blue);
+}
+.text-aydie-lime {
+  color: var(--aydie-lime);
+}
+.border-aydie-lime {
+  border-color: var(--aydie-lime);
+}
+.btn-aydie-lime {
+  background-color: var(--aydie-lime);
+  color: var(--aydie-blue); /* Text color for the button */
+}
+.btn-aydie-lime:hover {
+  background-color: #b8d46a; /* Slightly darker lime on hover */
+}
+/* Custom styles for focus effect on inputs/selects */
+.form-control:focus {
+  border-color: var(--aydie-lime) !important;
+  box-shadow: 0 0 0 0.25rem rgba(201, 233, 117, 0.25) !important; /* Light lime shadow */
+  outline: none;
+}
