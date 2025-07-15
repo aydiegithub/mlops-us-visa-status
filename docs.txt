@@ -112,3 +112,7 @@ Now I am developing prediction pipeline
 
 Now I am developing front end with HTML, CSS, and FastAPI
 Development is done
+
+
+# CICD deployement using github actions
+creating yaml file
