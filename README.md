@@ -36,8 +36,6 @@ The primary goal of this project is to build an end-to-end machine learning syst
 
 The project is composed of two main pipelines: the **Training Pipeline** and the **Prediction Pipeline**. The CI/CD workflow automates the execution of the training pipeline and the deployment of the prediction service.
 
-![Overall Workflow](http://googleusercontent.com/file_content/3)
-
 ## Technology Stack
 
 - **Programming Language:** Python 3.8+
@@ -52,8 +50,6 @@ The project is composed of two main pipelines: the **Training Pipeline** and the
 ## Project Structure
 
 The project follows a modular structure to ensure scalability and maintainability.
-
-![Folder Structure](http://googleusercontent.com/file_content/4)
 
 ```
 ├── .github/workflows/         # CI/CD pipeline configuration
@@ -120,34 +116,22 @@ The training pipeline is a sequence of components, each responsible for a specif
 ### 1. Data Ingestion
 This stage is responsible for fetching the dataset from the source (MongoDB), splitting it into training and testing sets, and storing them as artifacts for the next stages.
 
-![Data Ingestion Flow](http://googleusercontent.com/file_content/0)
-
 ### 2. Data Validation
 This stage validates the ingested data to ensure its quality and integrity. It performs two key checks:
 - **Schema Validation:** Verifies that the data conforms to a predefined schema (`schema.yaml`), checking for correct column names, data types, and value ranges.
 - **Data Drift Detection:** Compares the statistical properties of the new training data with a baseline (or previous batch) to detect any significant changes (drift). This is crucial for maintaining model performance over time.
 
-![Data Validation Flow](http://googleusercontent.com/file_content/2)
-
 ### 3. Data Transformation
 This stage preprocesses the validated data to make it suitable for model training. It involves applying a series of transformations like one-hot encoding for categorical features and scaling for numerical features. The transformation pipeline object is saved to be used later during prediction.
-
-![Data Transformation Flow](http://googleusercontent.com/file_content/1)
 
 ### 4. Model Trainer
 This stage takes the transformed data and trains a machine learning model. It uses the CatBoost Classifier algorithm. After training, the model is saved as a `.pkl` file.
 
-![Model Trainer Flow](http://googleusercontent.com/file_content/7)
-
 ### 5. Model Evaluation
 This stage evaluates the newly trained model's performance against the model currently in production. If no production model exists, the new model is accepted by default. If a production model exists, the new model is accepted only if its performance (e.g., F1-score) is better by a predefined margin.
 
-![Model Evaluation Flow](http://googleusercontent.com/file_content/5)
-
 ### 6. Model Pusher
 If the model evaluation stage accepts the new model, this stage pushes the model artifact to a production-ready cloud storage location (AWS S3 or Cloudflare R2). This makes the model available for the prediction service.
-
-![Model Pusher Flow](http://googleusercontent.com/file_content/6)
 
 ---
 
